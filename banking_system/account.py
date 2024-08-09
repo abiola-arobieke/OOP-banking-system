@@ -10,12 +10,11 @@ class Account:
         pass
 
 
-class SavingAccount(Account):
+class Saving(Account):
     def __init__(self, number, balance=0):
         super().__init__(number, balance)
 
 
-class CurrentAccount(Account):
+class Current(Account):
     def __init__(self, number, balance=0):
         super().__init__(number, balance)
-        
