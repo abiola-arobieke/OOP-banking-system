@@ -12,8 +12,12 @@ class Bank:
         return self.accounts
 
     @account.setter
-    def account(self, acc):
-        self.account = acc
+    def account(self, account):
+        self.account = account
+
+    def add_account(self, account):
+        self.accounts.append(account)
+        account.banks = self
 
     def getAccounts(self):
         pass
