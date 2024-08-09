@@ -5,19 +5,19 @@ class Bank:
     def __init__(self, code, address):
         self.code = code
         self.address = address
-        self.accounts = []
+        self.account = []
 
     @property
     def account(self):
-        return self.accounts
+        return self.__account
 
     @account.setter
     def account(self, account):
-        self.account = account
+        self.__account = account
 
     def add_account(self, account):
-        self.accounts.append(account)
-        account.banks = self
+        self.__account.append(account)
+        account.bank = self
 
     def getAccounts(self):
         pass
