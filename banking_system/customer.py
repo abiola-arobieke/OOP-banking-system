@@ -12,11 +12,11 @@ class Customer:
     @property
     def account(self):
         return self.accounts
-    
+
     @account.setter
     def account(self, account):
         self.accounts = account
-        
+
     def add_account(self, account):
         self.accounts.append(account)
         account.customer = self
