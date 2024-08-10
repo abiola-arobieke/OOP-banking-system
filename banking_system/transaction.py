@@ -12,8 +12,10 @@ class Transaction:
 
 
 class WithdrawTransaction(Transaction):
+    """A class representing widthraw in ATM"""
+
     def __init__(self, amount, account, atm):
-        self.transaction_type = 'withdraw'
+        self.type = 'withdraw'
         super().__init__(amount, account, atm)
 
     def withdraw(self, amount, account, atm):
@@ -27,8 +29,10 @@ class WithdrawTransaction(Transaction):
 
 
 class TransferTransaction(Transaction):
+    """A class transfer made in an ATM"""
+
     def __init__(self, amount, account, to_account, atm):
-        self.transaction_type = 'transfer'
+        self.type = 'transfer'
         super().__init__(amount, account, atm)
 
         self.to_account = to_account
