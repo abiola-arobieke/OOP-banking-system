@@ -40,6 +40,7 @@ class Saving(Account):
     """Class representing a saving account"""
 
     def __init__(self, number, balance=0):
+        self.type = 'Saving'
         super().__init__(number, balance)
 
 
@@ -47,4 +48,5 @@ class Current(Account):
     """Class representing a current account"""
 
     def __init__(self, number, balance=0):
+        self.type = 'Current'
         super().__init__(number, balance)
