@@ -1,4 +1,4 @@
-from account import Saving, Current, Account
+from account import Saving, Current
 
 
 class Bank:
@@ -17,6 +17,19 @@ class Bank:
     @account.setter
     def account(self, account):
         self.__account = account
+
+    def create_account(self, customer, number, balance=0, acc_type='saving'):
+        """Method for creating an account for a customer"""
+        if acc_type == 'saving':
+            new_account = Saving(number, balance)
+            self.account.append(new_account)
+            new_account.bank = self
+            customer.add_account(new_account)
+        else:
+            new_account = Current(number, balance)
+            self.account.append(new_account)
+            new_account.bank = self
+            customer.add_account(new_account)
 
     def add_account(self, account):
         """Function to add new account."""
