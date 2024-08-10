@@ -1,14 +1,13 @@
 from bank import Bank
-from customer import Customer
+from atm import Atm
 
 first_bank = Bank('80078', 'Onikan, Lagos')
 
-cust1 = Customer('Van Persie', 'Surulere, Lagos')
+atm1 = Atm('Onikan, Lagos', first_bank)
+atm2 = Atm('Onikan, Lagos', first_bank)
 
-first_bank.create_account(cust1, 3132424759)
-first_bank.create_account(cust1, 3234227820, 200, 'current')
+first_bank.add_atm(atm1)
+first_bank.add_atm(atm2)
 
-for account in cust1.account:
-    print(
-        f"Acct no: {account.number}, Acct bal: {account.balance}, Acct Type: {account.type}"
-    )
+for atm in first_bank.atms:
+    print(atm.location)
