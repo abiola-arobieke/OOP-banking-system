@@ -1,7 +1,9 @@
-from account import Saving, Current
+from account import Saving, Current, Account
 
 
 class Bank:
+    """Class representing a saving account"""
+
     def __init__(self, code, address):
         self.code = code
         self.address = address
@@ -9,6 +11,7 @@ class Bank:
 
     @property
     def account(self):
+        """Bank account getters"""
         return self.__account
 
     @account.setter
@@ -16,6 +19,7 @@ class Bank:
         self.__account = account
 
     def add_account(self, account):
+        """Function to add new account."""
         self.__account.append(account)
         account.bank = self
 
