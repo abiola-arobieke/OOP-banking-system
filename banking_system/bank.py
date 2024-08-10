@@ -42,7 +42,7 @@ class Bank:
             customer.add_account(new_account)
 
     def add_atm(self, atm):
-        """Method for add an ATM to the bank"""
+        """Method for adding an ATM to the bank"""
         self.atms.append(atm)
         atm.bank = self
 
