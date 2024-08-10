@@ -20,17 +20,21 @@ class Atm:
 
     def deposit(self, amount):
         """Method for depositing funds in the ATM"""
-        if amount < 0:
-            raise ValueError('Depositing funds cannot be less than 0')
+        if amount <= 0:
+            raise ValueError('You cannot funds cannot be less than 0')
         self.__deposits.append(amount)
         self.balance += amount
 
-    def get_deposit(self):
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise ValueError('You cannot withdraw above the atm balance')
+        elif amount <= 0:
+            raise ValueError('You cannot withdraw zero or negative amount')
+        self.balance -= amount
+
+    def get_all_deposit(self):
         """Method for getting all depsoit"""
         return self.__deposits
-    
+
     def get_transactions(self):
         return self.transaction
-
-    def withdraw(self):
-        pass
