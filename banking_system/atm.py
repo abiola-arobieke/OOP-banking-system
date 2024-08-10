@@ -5,6 +5,7 @@ class Atm:
         self.balance = balance
         self.banks = []
         self.__deposits = []
+        self.transaction = []
 
     @property
     def bank(self):
@@ -27,6 +28,9 @@ class Atm:
     def get_deposit(self):
         """Method for getting all depsoit"""
         return self.__deposits
+    
+    def get_transactions(self):
+        return self.transaction
 
     def withdraw(self):
         pass
