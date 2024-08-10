@@ -6,6 +6,7 @@ class Account:
         self.balance = balance
         self.banks = []
         self.customers = []
+        self.transaction = []
 
     @property
     def bank(self):
@@ -28,6 +29,7 @@ class Account:
         self.customers = customer
         if not self in self.customers.account:
             customer.account.append(self)
+
 
     def deposit(self):
         pass
