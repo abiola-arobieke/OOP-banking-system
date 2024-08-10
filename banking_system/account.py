@@ -1,3 +1,6 @@
+from transaction import WithdrawTransaction, TransferTransaction
+
+
 class Account:
     """Class representing a bank account"""
 
@@ -30,12 +33,16 @@ class Account:
         if not self in self.customers.account:
             customer.account.append(self)
 
+    def deposit(self, amount):
+        self.balance += amount
 
-    def deposit(self):
-        pass
+    def withdraw(self, amount, atm):
+        cash = WithdrawTransaction(amount, self, atm)
+        cash.withdraw(amount, self, atm)
 
-    def withdraw(self):
-        pass
+    def transfer(self, amount, to_account, atm):
+        transfer = TransferTransaction(amount, self, to_account, atm)
+        transfer.transfer(amount, self, to_account)
 
 
 class Saving(Account):
