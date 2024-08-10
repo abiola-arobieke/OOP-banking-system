@@ -1,8 +1,12 @@
+from datetime import datetime
+
+
 class Transaction:
     """A class representing an ATM transaction"""
 
     def __init__(self, amount, account, atm):
         self.amount = amount
+        self.date = datetime.today().strftime('%Y-%m-%d')
 
         self.account = account
         account.transaction.append(self)
@@ -19,9 +23,10 @@ class WithdrawTransaction(Transaction):
         super().__init__(amount, account, atm)
 
     def withdraw(self, amount, account, atm):
-        if atm.deposit >= amount:
+        if atm.balance >= amount:
             if account.balance >= amount:
                 account.balance -= amount
+                atm.balance -= amount
             else:
                 print("Insufficient funds to withdraw")
         else:
@@ -29,7 +34,7 @@ class WithdrawTransaction(Transaction):
 
 
 class TransferTransaction(Transaction):
-    """A class transfer made in an ATM"""
+    """A class representing transfer made in an ATM"""
 
     def __init__(self, amount, account, to_account, atm):
         self.type = 'transfer'
