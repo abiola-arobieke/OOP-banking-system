@@ -8,6 +8,16 @@ class Bank:
         self.code = code
         self.address = address
         self.account = []
+        self.atms = []
+
+    @property
+    def atm(self):
+        """ATM getters method"""
+        return self.atms
+
+    @atm.setter
+    def atm(self, atm):
+        self.atms = atm
 
     @property
     def account(self):
@@ -30,6 +40,11 @@ class Bank:
             self.account.append(new_account)
             new_account.bank = self
             customer.add_account(new_account)
+
+    def add_atm(self, atm):
+        """Method for add an ATM to the bank"""
+        self.atms.append(atm)
+        atm.bank = self
 
     def add_account(self, account):
         """Function to add new account."""
