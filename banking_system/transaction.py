@@ -26,6 +26,7 @@ class WithdrawTransaction(Transaction):
         if atm.balance >= amount:
             if account.balance >= amount:
                 account.balance -= amount
+                account.book_balance -= amount
                 atm.balance -= amount
             else:
                 print("Insufficient funds to withdraw")
@@ -45,6 +46,8 @@ class TransferTransaction(Transaction):
     def transfer(self, amount, account, to_account):
         if account.balance >= amount:
             account.balance -= amount
+            account.book_balance -= amount
             to_account.balance += amount
+            to_account.book_balance += amount
         else:
             print("Insufficient funds to transfer")
