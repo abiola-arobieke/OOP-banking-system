@@ -47,10 +47,29 @@ class Bank:
         self.atms.append(atm)
         atm.bank = self
 
+    # Deprecated method. Remember to remove
     def add_account(self, account):
         """Function to add new account."""
         self.__account.append(account)
         account.bank = self
+
+    def approve_loan(self, acct_num):
+        for account in self.account:
+            if account.number == acct_num:
+                for loan in self.loans:
+                    if loan.account == account and loan.status == "pending":
+                        ledger_balance = account.balance - loan.amount
+                        loan.credit += loan.amount
+                        loan.debt += loan.amount
+                        loan.book_balance = ledger_balance
+                        account.balance += loan.amount
+                        account.book_balance = ledger_balance
+                        loan.status = "approved"
+                        break
+                    else:
+                        print("Loan request not found or nor pending")
+            else:
+                print("No loan request")
 
     def getAccounts(self):
         pass
