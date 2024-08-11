@@ -9,6 +9,7 @@ class Bank:
         self.address = address
         self.account = []
         self.atms = []
+        self.loans = []
 
     @property
     def atm(self):
