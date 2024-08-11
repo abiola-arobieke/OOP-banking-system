@@ -1,4 +1,5 @@
 from transaction import WithdrawTransaction, TransferTransaction
+from loan import Loan
 
 
 class Account:
@@ -7,9 +8,11 @@ class Account:
     def __init__(self, number, balance=0):
         self.number = number
         self.balance = balance
+        self.book_balance = balance
         self.banks = []
         self.customers = []
         self.transaction = []
+        self.loans = []
 
     @property
     def bank(self):
@@ -35,6 +38,7 @@ class Account:
 
     def deposit(self, amount):
         self.balance += amount
+        self.book_balance += amount
 
     def withdraw(self, amount, atm):
         cash = WithdrawTransaction(amount, self, atm)
@@ -44,6 +48,12 @@ class Account:
         transfer = TransferTransaction(amount, self, to_account, atm)
         transfer.transfer(amount, self, to_account)
 
+    def request_loan(self):
+        pass
+
+    def re(self):
+        print(self.bank)
+
 
 class Saving(Account):
     """Class representing a saving account"""
@@ -52,6 +62,12 @@ class Saving(Account):
         self.type = 'Saving'
         super().__init__(number, balance)
 
+    def request_loan(self, amount, bank):
+        if amount <= 0:
+            raise ValueError('Invalid request')
+        Loan(amount, self, bank)
+  
+
 
 class Current(Account):
     """Class representing a current account"""
@@ -59,3 +75,6 @@ class Current(Account):
     def __init__(self, number, balance=0):
         self.type = 'Current'
         super().__init__(number, balance)
+
+    def request_loan(self, amount, bank):
+        Loan(amount, self, bank)
