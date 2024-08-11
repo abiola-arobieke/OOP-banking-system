@@ -48,11 +48,9 @@ class Account:
         transfer = TransferTransaction(amount, self, to_account, atm)
         transfer.transfer(amount, self, to_account)
 
+    # @classmethod
     def request_loan(self):
         pass
-
-    def re(self):
-        print(self.bank)
 
 
 class Saving(Account):
@@ -66,7 +64,6 @@ class Saving(Account):
         if amount <= 0:
             raise ValueError('Invalid request')
         Loan(amount, self, bank)
-  
 
 
 class Current(Account):
