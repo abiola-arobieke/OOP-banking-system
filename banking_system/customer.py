@@ -1,19 +1,27 @@
+"""Module providing a managing the atm activities."""
+
 from loan import Loan
 
 
 class Customer:
     """A class representing a customer"""
 
-    def __init__(self, name, address, password=None, card_number=None, pin=None):
+    def __init__(self, name, address, password=None):
         self.name = name
         self.address = address
         self.password = password
-        self.card_number = card_number
-        self.pin = pin
+        self.card_number = None
+        self.pin = None
         self.accounts = []
+        self.banks = []
+
+    @property
+    def bank(self):
+        return self.banks
 
     @property
     def account(self):
+        """Account getters method"""
         return self.accounts
 
     @account.setter
@@ -21,6 +29,8 @@ class Customer:
         self.accounts = account
 
     def add_account(self, account):
+        """Method for adding account"""
+
         self.accounts.append(account)
         account.customer = self
 
