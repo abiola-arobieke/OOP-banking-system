@@ -1,10 +1,12 @@
 from datetime import datetime
+from dataclasses import dataclass
 
 
+@dataclass
 class Transaction:
     """A class representing an ATM transaction"""
 
-    def __init__(self, amount, account, atm):
+    def __init__(self, amount: int, account: object, atm: object):
         self.amount = amount
         self.date = datetime.today().strftime('%Y-%m-%d')
 
@@ -18,7 +20,7 @@ class Transaction:
 class WithdrawTransaction(Transaction):
     """A class representing widthraw in ATM"""
 
-    def __init__(self, amount, account, atm):
+    def __init__(self, amount: int, account: object, atm: object):
         self.type = 'withdraw'
         super().__init__(amount, account, atm)
 
@@ -37,7 +39,7 @@ class WithdrawTransaction(Transaction):
 class TransferTransaction(Transaction):
     """A class representing transfer made in an ATM"""
 
-    def __init__(self, amount, account, to_account, atm):
+    def __init__(self, amount: int, account: object, to_account: object, atm: object):
         self.type = 'transfer'
         super().__init__(amount, account, atm)
 
