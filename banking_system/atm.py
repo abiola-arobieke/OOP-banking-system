@@ -1,4 +1,4 @@
-"""Module providing a managing the atm activities."""
+"""Module for managing the atm activities."""
 
 
 class Atm:
