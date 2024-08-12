@@ -1,3 +1,5 @@
+"""Module for managing the account activities."""
+
 from transaction import WithdrawTransaction, TransferTransaction
 from loan import Loan
 
@@ -28,6 +30,7 @@ class Account:
     @property
     def customer(self):
         """A getter method for adding a customer"""
+
         return self.customers
 
     @customer.setter
@@ -37,20 +40,26 @@ class Account:
             customer.account.append(self)
 
     def deposit(self, amount):
+        """A method for depositing funds in the customer account"""
+
         self.balance += amount
         self.book_balance += amount
 
     def withdraw(self, amount, atm):
+        """A method for withdrawing funds in the customer account at the atm"""
+
         cash = WithdrawTransaction(amount, self, atm)
         cash.withdraw(amount, self, atm)
 
     def transfer(self, amount, to_account, atm):
+        """A method for transferring funds at the atm"""
+
         transfer = TransferTransaction(amount, self, to_account, atm)
         transfer.transfer(amount, self, to_account)
 
     # @classmethod
-    def request_loan(self):
-        pass
+    def request_loan(self, amount, bank):
+        """Function performing a loan request"""
 
 
 class Saving(Account):
