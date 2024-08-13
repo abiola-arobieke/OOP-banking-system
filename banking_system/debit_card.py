@@ -2,14 +2,15 @@ import random
 
 
 class DebitCard:
-    def __init__(self, card_number, owner_by):
-        self.card_number = card_number
+    def __init__(self, owner_by):
         self.owner_by = owner_by
+        self.card_number = random.randint(1000000000000000, 9999999999999999)
         self.ccv = random.randint(100, 999)
-        self.banks = []
+        # self.banks = []
         self.atms = []
-        self.accounts = None
-        self.customers = []
+        self.accounts = []
+        self.customer = []
+        self.banks = []
 
     @property
     def card_number(self):
@@ -17,9 +18,20 @@ class DebitCard:
 
     @card_number.setter
     def card_number(self, cardnumber):
-        if not len(str(cardnumber)) == 24:
-            raise ValueError("Card number must be 24 digits long")
+        if not len(str(cardnumber)) == 16:
+            raise ValueError("Card number must be 16 digits long")
         self.__card_number = cardnumber
+
+    @property
+    def bank(self):
+        """A getter method for adding a bank"""
+        return self.banks
+
+    @bank.setter
+    def bank(self, bank):
+        self.banks = bank
+        if not self in self.banks.debit_card:
+            bank.debit_card.append(self)
 
     @property
     def account(self):
@@ -28,17 +40,3 @@ class DebitCard:
     @account.setter
     def account(self, acc):
         self.accounts = acc
-
-    def add_account(self, account):
-        self.accounts = account
-        account.debit_cards = self
-
-    @property
-    def bank(self):
-        return self.banks
-
-    @bank.setter
-    def bank(self, debit_card):
-        self.banks = debit_card
-        if not self in self.banks.debit_card:
-            self.banks.debit_card.append(self)
