@@ -1,6 +1,6 @@
 """Module for managing bank class."""
 
-from account import Saving, Current
+# from debit_card import DebitCard
 from atm import Atm
 
 
@@ -14,7 +14,7 @@ class Bank:
         self.atms = []
         self.loans = []
         self.debit_cards = []
-        self.__customers = []
+        self.__customer = []
 
     @property
     def atm(self):
@@ -40,34 +40,37 @@ class Bank:
 
     @debit_card.setter
     def debit_card(self, card):
-        self.debit_card = card
+        self.debit_cards = card
+        # self.debit_card.append(card)
+        # card.bank = self
 
     @property
     def customer(self):
-        return self.__customers
+        return self.__customer
 
-    def add_debit_card(self, debit_card):
-        debit_card.bank = self
-        self.debit_cards.append(debit_card)
+    @customer.setter
+    def customer(self, customer):
+        self.__customer = customer
 
-    def create_account(self, customer, number, balance=0, acc_type='saving'):
+    # def add_debit_card(self, debit_card):
+    #     debit_card.bank = self
+    #     self.debit_cards.append(debit_card)
+
+    def create_account(self, customer, account, debit_card):
         """Method for creating an account for a customer"""
 
-        if acc_type == 'saving':
-            new_account = Saving(number, balance)
-            self.account.append(new_account)
-            new_account.bank = self
-            customer.add_account(new_account)
-            customer.bank.append(self)
-            self.customer.append(customer)
+        self.account.append(account)
+        self.customer.append(customer)
+        self.debit_card.append(debit_card)
 
-        else:
-            new_account = Current(number, balance)
-            self.account.append(new_account)
-            new_account.bank = self
-            customer.add_account(new_account)
-            customer.bank.append(self)
-            self.customer.append(customer)
+        debit_card.bank = self
+
+        account.bank = self
+        account.debit_card = debit_card
+
+        customer.bank.append(self)
+        customer.account = account
+        customer.debit_card = debit_card
 
     def add_atm(self, location):
         """Method for adding an ATM to the bank"""
