@@ -1,10 +1,10 @@
 """Module for managing the account activities."""
-
+from abc import ABC, abstractmethod
 from transaction import WithdrawTransaction, TransferTransaction
 from loan import Loan
 
 
-class Account:
+class Account(ABC):
     """Class representing a bank account"""
 
     def __init__(self, number, balance=0):
@@ -15,6 +15,16 @@ class Account:
         self.customers = []
         self.transaction = []
         self.loans = []
+        self.debit_cards = []
+
+    @property
+    def debit_card(self):
+        return self.debit_cards
+
+    @debit_card.setter
+    def debit_card(self, debit_card):
+        self.debit_cards = debit_card
+        debit_card.account = self
 
     @property
     def bank(self):
@@ -25,12 +35,11 @@ class Account:
     def bank(self, bank):
         self.banks = bank
         if not self in self.banks.account:
-            self.bank.append(self)
+            bank.account.append(self)
 
     @property
     def customer(self):
         """A getter method for adding a customer"""
-
         return self.customers
 
     @customer.setter
@@ -57,7 +66,7 @@ class Account:
         transfer = TransferTransaction(amount, self, to_account, atm)
         transfer.transfer(amount, self, to_account)
 
-    # @classmethod
+    @abstractmethod
     def request_loan(self, amount, bank):
         """Function performing a loan request"""
 
