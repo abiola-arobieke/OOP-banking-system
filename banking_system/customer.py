@@ -13,11 +13,21 @@ class Customer:
         self.card_number = None
         self.pin = None
         self.accounts = []
-        self.banks = []
+        self.debit_cards = []
+        self.__bank = []
+
+    # def bank(self):
+    #     # return self.banks
 
     @property
-    def bank(self):
-        return self.banks
+    def debit_card(self):
+        return self.debit_cards
+
+    @debit_card.setter
+    def debit_card(self, debit_card):
+        # self.debit_cards = debit_card
+        self.debit_cards.append(debit_card)
+        debit_card.customer = self
 
     @property
     def account(self):
@@ -26,13 +36,13 @@ class Customer:
 
     @account.setter
     def account(self, account):
-        self.accounts = account
-
-    def add_account(self, account):
-        """Method for adding account"""
-
         self.accounts.append(account)
         account.customer = self
+
+    @property
+    def bank(self):
+        """A getter method for adding a bank"""
+        return self.__bank
 
     def request_loan(self, amount, acct_number):
         if amount <= 0 or amount > 50000:
