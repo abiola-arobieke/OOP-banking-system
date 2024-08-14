@@ -1,4 +1,5 @@
 """Module for managing the account activities."""
+
 from abc import ABC, abstractmethod
 from transaction import WithdrawTransaction, TransferTransaction
 from loan import Loan
