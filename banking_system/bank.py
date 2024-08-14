@@ -1,4 +1,6 @@
-from account import Saving, Current
+"""Module for managing bank class."""
+
+from atm import Atm
 
 
 class Bank:
@@ -9,6 +11,9 @@ class Bank:
         self.address = address
         self.account = []
         self.atms = []
+        self.loans = []
+        self.debit_cards = []
+        self.__customer = []
 
     @property
     def atm(self):
@@ -28,34 +33,92 @@ class Bank:
     def account(self, account):
         self.__account = account
 
-    def create_account(self, customer, number, balance=0, acc_type='saving'):
-        """Method for creating an account for a customer"""
-        if acc_type == 'saving':
-            new_account = Saving(number, balance)
-            self.account.append(new_account)
-            new_account.bank = self
-            customer.add_account(new_account)
-        else:
-            new_account = Current(number, balance)
-            self.account.append(new_account)
-            new_account.bank = self
-            customer.add_account(new_account)
+    @property
+    def debit_card(self):
+        """Function for debit card getters"""
 
-    def add_atm(self, atm):
+        return self.debit_cards
+
+    @debit_card.setter
+    def debit_card(self, card):
+        self.debit_cards = card
+
+    @property
+    def customer(self):
+        """Method for customers getter."""
+
+        return self.__customer
+
+    @customer.setter
+    def customer(self, customer):
+        self.__customer = customer
+
+    def create_account(self, customer, account, debit_card):
+        """Method for creating an account for a customer"""
+
+        self.account.append(account)
+        self.customer.append(customer)
+        self.debit_card.append(debit_card)
+
+        debit_card.bank = self
+
+        account.bank = self
+        account.debit_card = debit_card
+
+        customer.bank.append(self)
+        customer.account = account
+        customer.debit_card = debit_card
+
+    def add_atm(self, location):
         """Method for adding an ATM to the bank"""
+
+        atm = Atm(location, self)
         self.atms.append(atm)
         atm.bank = self
 
-    def add_account(self, account):
-        """Function to add new account."""
-        self.__account.append(account)
-        account.bank = self
+    def approve_loan(self, acct_num):
+        """Method for approving loan request"""
 
-    def getAccounts(self):
-        pass
+        for account in self.account:
+            if account.number == acct_num:
+                for loan in self.loans:
+                    if loan.account == account and loan.status == "pending":
+                        ledger_balance = account.balance - loan.amount
+                        loan.credit += loan.amount
+                        loan.debt += loan.amount
+                        loan.book_balance = ledger_balance
+                        account.balance += loan.amount
+                        account.book_balance -= loan.amount
+                        loan.status = "approved"
+                        break
+                    else:
+                        print("Loan request not found or nor pending")
+            else:
+                print("No loan request")
 
-    def maintain(self):
-        pass
+    def reject_loan(self, acct_num):
+        """Method for rejecting loan request"""
 
-    def manages(self):
-        pass
+        for account in self.account:
+            if account.number == acct_num:
+                for loan in self.loans:
+                    if loan.account == account and loan.status == "pending":
+                        loan.status = "rejected"
+
+    def loan_request(self):
+        """Function for getting all loan request"""
+
+        return self.loans
+
+    def find_account(self, acc):
+        """Function for searching for an account"""
+
+        for account in self.account:
+            if acc == account:
+                return account
+            return "No match found"
+
+    def get_accounts(self):
+        """Method for approving loan request"""
+
+        return self.__account
