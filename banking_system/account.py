@@ -7,7 +7,7 @@ from loan import Loan
 class Account(ABC):
     """Class representing a bank account"""
 
-    def __init__(self, number, balance=0):
+    def __init__(self, number: int, balance=0):
         self.number = number
         self.balance = balance
         self.book_balance = balance
@@ -19,6 +19,7 @@ class Account(ABC):
 
     @property
     def debit_card(self):
+        """A getter method for debit card"""
         return self.debit_cards
 
     @debit_card.setter
@@ -50,7 +51,9 @@ class Account(ABC):
 
     def deposit(self, amount):
         """A method for depositing funds in the customer account"""
-
+        if amount <= 0:
+            raise ValueError(
+                'Invalid operation! Depositing funds cannot be 0 or negative')
         self.balance += amount
         self.book_balance += amount
 
