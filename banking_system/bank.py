@@ -1,6 +1,5 @@
 """Module for managing bank class."""
 
-# from debit_card import DebitCard
 from atm import Atm
 
 
@@ -36,25 +35,23 @@ class Bank:
 
     @property
     def debit_card(self):
+        """Function for debit card getters"""
+
         return self.debit_cards
 
     @debit_card.setter
     def debit_card(self, card):
         self.debit_cards = card
-        # self.debit_card.append(card)
-        # card.bank = self
 
     @property
     def customer(self):
+        """Method for customers getter."""
+
         return self.__customer
 
     @customer.setter
     def customer(self, customer):
         self.__customer = customer
-
-    # def add_debit_card(self, debit_card):
-    #     debit_card.bank = self
-    #     self.debit_cards.append(debit_card)
 
     def create_account(self, customer, account, debit_card):
         """Method for creating an account for a customer"""
@@ -80,6 +77,8 @@ class Bank:
         atm.bank = self
 
     def approve_loan(self, acct_num):
+        """Method for approving loan request"""
+
         for account in self.account:
             if account.number == acct_num:
                 for loan in self.loans:
@@ -98,6 +97,8 @@ class Bank:
                 print("No loan request")
 
     def reject_loan(self, acct_num):
+        """Method for rejecting loan request"""
+
         for account in self.account:
             if account.number == acct_num:
                 for loan in self.loans:
@@ -105,19 +106,19 @@ class Bank:
                         loan.status = "rejected"
 
     def loan_request(self):
+        """Function for getting all loan request"""
+
         return self.loans
 
     def find_account(self, acc):
+        """Function for searching for an account"""
+
         for account in self.account:
             if acc == account:
                 return account
-            print("No match found")
+            return "No match found"
 
-    def getAccounts(self):
-        pass
+    def get_accounts(self):
+        """Method for approving loan request"""
 
-    def maintain(self):
-        pass
-
-    def manages(self):
-        pass
+        return self.__account
