@@ -88,7 +88,7 @@ class Bank:
                         loan.debt += loan.amount
                         loan.book_balance = ledger_balance
                         account.balance += loan.amount
-                        account.book_balance = ledger_balance
+                        account.book_balance -= loan.amount
                         loan.status = "approved"
                         break
                     else:

@@ -3,30 +3,31 @@
 from loan import Loan
 
 
+class PasswordError(Exception):
+    """A class representing a pass exception"""
+
+
 class Customer:
     """A class representing a customer"""
 
-    def __init__(self, name, address, password=None):
+    def __init__(self, name, address, password='0000'):
         self.name = name
         self.address = address
-        self.password = password
+        self.__password = password
         self.card_number = None
         self.pin = None
         self.accounts = []
-        self.debit_cards = []
+        self.__debit_card = []
         self.__bank = []
-
-    # def bank(self):
-    #     # return self.banks
 
     @property
     def debit_card(self):
-        return self.debit_cards
+        """Debit card getter method"""
+        return self.__debit_card
 
     @debit_card.setter
     def debit_card(self, debit_card):
-        # self.debit_cards = debit_card
-        self.debit_cards.append(debit_card)
+        self.__debit_card.append(debit_card)
         debit_card.customer = self
 
     @property
@@ -45,6 +46,8 @@ class Customer:
         return self.__bank
 
     def request_loan(self, amount, acct_number):
+        """Function for making a loan request"""
+
         if amount <= 0 or amount > 50000:
             raise ValueError('Invalid amount')
 
@@ -52,5 +55,9 @@ class Customer:
             if account.number == acct_number:
                 Loan(amount, account, account.bank)
 
-    def verify_password(self):
-        pass
+    def verify_password(self, password):
+        """Function for verifying password"""
+
+        if password != self.__password:
+            raise PasswordError('Invalid Password')
+        return "Password matched"

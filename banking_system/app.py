@@ -5,6 +5,7 @@ from atm import Atm
 from customer import Customer
 from account import Saving, Current
 from debit_card import DebitCard
+from loan import Loan
 
 first_bank = Bank('80078', 'Onikan, Lagos')
 gt_bank = Bank('80456', 'Berger, Lagos')
@@ -31,6 +32,9 @@ atm2 = Atm('Onikan, Lagos', first_bank)
 
 first_bank.add_atm('Dugbe, Ibadan')
 first_bank.add_atm('Challenge, Ibadan')
+
+loan = Loan(12000, acct1, first_bank)
+first_bank.approve_loan(23456729803)
 
 
 print(f'First Bank Accounts:  {first_bank.account}')
@@ -60,5 +64,6 @@ for account in cust1.account:
     if account.number == 23456729803:
         account.withdraw(1000, atm1)
         print(f'Acct bal after withdrawal: {account.balance}')
+        print(f'Acct Book balance: {account.book_balance}')
         print(f'Debit card no: {account.debit_card.card_number}')
         print(f'Debit card ccv: {account.debit_card.ccv}')

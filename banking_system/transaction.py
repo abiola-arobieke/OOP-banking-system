@@ -1,3 +1,5 @@
+"""File for managing the atm transactions"""
+
 from datetime import datetime
 from dataclasses import dataclass
 
@@ -25,6 +27,8 @@ class WithdrawTransaction(Transaction):
         super().__init__(amount, account, atm)
 
     def withdraw(self, amount, account, atm):
+        """A class representing widthraw in ATM"""
+
         if atm.balance >= amount:
             if account.balance >= amount:
                 account.balance -= amount
@@ -46,6 +50,8 @@ class TransferTransaction(Transaction):
         self.to_account = to_account
 
     def transfer(self, amount, account, to_account):
+        """Function for transfer funds to another account in the ATM"""
+
         if account.balance >= amount:
             account.balance -= amount
             account.book_balance -= amount
