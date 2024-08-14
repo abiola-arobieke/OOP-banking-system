@@ -54,7 +54,7 @@ class Account(ABC):
         self.balance += amount
         self.book_balance += amount
 
-    def withdraw(self, amount, atm):
+    def withdraw(self, amount: int, atm):
         """A method for withdrawing funds in the customer account at the atm"""
 
         cash = WithdrawTransaction(amount, self, atm)
